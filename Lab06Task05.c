@@ -43,6 +43,7 @@ char *message;
 int n = 0;
 int nread = 0;
 int nread2 = 0;
+int pout, cout = 0;
 char b[1];
 char b2[1];
 printf("fork program starting\n");
@@ -53,7 +54,7 @@ case -1:
     perror("fork failed");
     exit(1);
 case 0:
-int pout = open("parentout.txt",O_RDWR | O_CREAT,0666);
+pout = open("parentout.txt",O_RDWR | O_CREAT,0666);
 //puts numerical characters in the output file.
     while((nread = read(fd1,b,1)>0)){
         if(*b >= '0' && *b <= '9'){
@@ -64,7 +65,7 @@ int pout = open("parentout.txt",O_RDWR | O_CREAT,0666);
     }
 break;
 default:
-int cout = open("childout.txt",O_RDWR | O_CREAT,0666);
+cout = open("childout.txt",O_RDWR | O_CREAT,0666);
 //puts non-alphanumerical characters in the output file.
     while((nread2 = read(fd1,b2,1)>0)){
         if(*b2 < '0' || *b2 > '9'){
